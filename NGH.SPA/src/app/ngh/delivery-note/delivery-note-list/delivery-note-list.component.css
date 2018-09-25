@@ -1,0 +1,6 @@
+.dropdown-menu.show {
+    position: fixed;
+    top: auto !important;
+    left: auto !important;
+    width: inherit;
+  }

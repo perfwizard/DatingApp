@@ -1,0 +1,178 @@
+<div class="container">
+  <!-- Main content starts -->
+  <div>
+    <!-- Invoice card start -->
+    <div class="card">
+      <div class="row invoice-contact">
+        <div class="col-md-6">
+          <div class="invoice-box row">
+            <div class="col-sm-12">
+              <table class="table table-responsive invoice-table table-borderless">
+                <tbody>
+                  <tr>
+                    <td>
+                      <img src="assets/images/ngh-images/ngh-logo.jpg" class="m-b-10 img-fluid img-thumbnail" width="100" height="100"
+                        alt="">
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>ห้างขายทองนัม เกีย เฮง</td>
+                  </tr>
+                  <tr>
+                    <td>208, Paris Point, Varachha Road, Surat. (1234) - 567891</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <a href="mailto:demo@gmail.com" target="_top">demo@gmail.com</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>+91 919-91-91-919</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="row text-center">
+            <div class="col-sm-12 invoice-btn-group">
+              <button type="button" class="btn btn-primary waves-effect waves-light m-b-10 btn-sm">
+                <i class="fa fa-print"></i> พิมพ์ใบส่งของ</button>
+              <button type="button" class="btn btn-success waves-effect waves-light m-b-10 btn-sm">
+                <i class="fa fa-file-text-o"></i> พิมพ์ใบแจ้งหนี้</button>
+              <button type="button" class="btn btn-warning waves-effect waves-light m-b-10 btn-sm"
+                (click)="edit()">
+                <i class="fa fa-pencil"></i> แก้ไข</button>
+              <button type="button" class="btn btn-danger waves-effect waves-light m-b-10 btn-sm">
+                <i class="fa fa-trash"></i> ยกเลิก</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="row invoive-info">
+          <div class="col-md-4 col-xs-12 invoice-client-info">
+            <h6>Client Information :</h6>
+            <h6 class="m-0">{{ dn.customerName }}</h6>
+            <p class="m-0 m-t-10">{{ dn.billingAddress }}</p>
+            <p class="m-0">Tel No.</p>
+            <p>demo@codedthemes.com</p>
+          </div>
+          <div class="col-md-4 col-sm-6">
+            <h6>Order Information :</h6>
+            <table class="table table-responsive invoice-table invoice-order table-borderless">
+              <tbody>
+                <tr>
+                  <th>Date :</th>
+                  <td>{{ dn.dnDate | date: "dd/MM/yyyy" }}</td>
+                </tr>
+                <tr>
+                  <th>Status :</th>
+                  <td>
+                    <span class="label label-warning">{{ dn.statusName }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <th>No. :</th>
+                  <td>
+                    {{ dn.dnNo }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-md-4 col-sm-6">
+            <h6 class="m-b-20">เลขที่ใบส่งของ
+              <span>{{ dn.dnNo }}</span>
+            </h6>
+            <h6 class="text-uppercase text-primary">Total Due : 
+              <span>{{ dn.balance }}</span>
+            </h6>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="table-responsive">
+              <table class="table  invoice-detail-table">
+                <thead>
+                  <tr class="thead-default">
+                    <th>รหัสสินค้า</th>
+                    <th>ชื่อสินค้า</th>
+                    <th>จำนวน</th>
+                    <th>ราคา</th>
+                    <th>ส่วนลด</th>
+                    <th>จำนวนเงิน</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let l of dn.deliveryNoteLines">
+                    <td>{{ l.productCode }}</td>
+                    <td class="text-left">
+                    {{ l.productName }}
+                    </td>
+                    <td>{{ l.qty }}}</td>
+                    <td>{{ l.unitPrice }}</td>
+                    <td>{{ l.discount }}</td>
+                    <td>{{ l.lineTotal }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <table class="table table-responsive invoice-table invoice-total">
+              <tbody>
+                <tr>
+                  <th>รวมราคา :</th>
+                  <td>{{ dn.subtotal }}</td>
+                </tr>
+                <tr>
+                  <th>ส่วนลด :</th>
+                  <td>{{ dn.discount }}</td>
+                </tr>
+                <tr>
+                  <th>รวมเงินก่อนภาษี :</th>
+                  <td>{{ dn.subtotal - dn.discount }}</td>
+                </tr>
+                <tr>
+                  <th>ราคารับซื้อทองเก่า :</th>
+                  <td>{{ dn.tradePrice }} </td>
+                </tr>
+                <tr>
+                  <th>ส่วนต่าง :</th>
+                  <td>{{ dn.subtotal - dn.tradePrice }}</td>
+                </tr>
+                <tr>
+                  <th>ภาษีมูลค่าเพิ่ม (7%) :</th>
+                  <td>{{ dn.vatAmount }}</td>
+                </tr>
+                <tr class="text-info">
+                  <td>
+                    <hr/>
+                    <h5 class="text-primary">รวมเงินทั้งสิ้น :</h5>
+                  </td>
+                  <td>
+                    <hr/>
+                    <h5 class="text-primary">{{ dn.grandTotal }} </h5>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <h6>Terms And Condition :</h6>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
+              magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+              consequat. Duis aute irure dolor </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Invoice card end -->
+  </div>
+</div>

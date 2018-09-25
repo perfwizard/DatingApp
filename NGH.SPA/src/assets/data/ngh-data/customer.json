@@ -1,0 +1,48 @@
+
+[
+    {
+        "id": 1,
+        "code": "CODE1",
+        "name": "Customer-1",
+        "taxId": "3219900089778",
+        "branch": "Head Office",
+        "telNo": "086-816-2500",
+        "faxNo": "",
+        "email": "",
+        "customerGroup": 0,
+        "contactName": "Biggy",
+        "billingAddress": null,
+        "shippingAddress": null,
+        "balance": 5500
+    },
+    {
+        "id": 2,
+        "code": "CODE2",
+        "name": "Customer-2",
+        "taxId": "3219900089715",
+        "branch": "Head Office",
+        "telNo": "086-816-8901",
+        "faxNo": "",
+        "email": "",
+        "customerGroup": 0,
+        "contactName": "Prakit",
+        "billingAddress": null,
+        "shippingAddress": null,
+        "balance": 90500
+    },
+    {
+        "id": 3,
+        "code": "CODE3",
+        "name": "Customer-3",
+        "taxId": "3219900084678",
+        "branch": "Head Office",
+        "telNo": "086-816-2601",
+        "faxNo": "",
+        "email": "",
+        "customerGroup": 0,
+        "contactName": "Sandy",
+        "billingAddress": null,
+        "shippingAddress": null,
+        "balance": 120600
+    }
+]

@@ -1,0 +1,165 @@
+<div class="page-body">
+    <div class="row">
+      <div class="col-md-12">
+        <app-card [title]="'Customer Edit'" [headerContent]="'Edit customer information'" [cardOptionBlock]="true">
+          <div class="card-block-hid">
+            <div class="card-block">
+              <h4 class="sub-title">Customer Information</h4>
+              <form [formGroup]="customerForm" (ngSubmit)="onSubmit()">
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label">Customer Code</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="code" placeholder="Customer Code" formControlName="code">
+                    <div class="messages text-danger" *ngIf="(customerForm.controls['code'].touched || customerForm.controls['code'].dirty)
+                        && customerForm.controls['code'].errors && customerForm.controls['code'].errors?.required">Name can't be blank</div>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label">Customer Name</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="name" placeholder="Customer Name" formControlName="name">
+                    <div class="messages text-danger error" *ngIf="(customerForm.controls['name'].touched || customerForm.controls['name'].dirty)
+                        && customerForm.controls['name'].errors && customerForm.controls['name'].errors?.required">
+                      Customer Name can't be blank.
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label">Tax ID</label>
+                  <div class="col-sm-4">
+                    <input type="text" class="form-control" id="taxId" placeholder="Tax ID" formControlName="taxId">
+                    <div class="messages text-danger error" *ngIf="(customerForm.controls['taxId'].touched || customerForm.controls['taxId'].dirty)
+                        && customerForm.controls['taxId'].errors && customerForm.controls['taxId'].errors?.required">
+                      Tax ID can't be blank.
+                    </div>
+                  </div>
+                  <label class="col-sm-2 col-form-label pull-right">Branch Code</label>
+                  <div class="col-sm-4">
+                    <input type="text" class="form-control" id="branch" placeholder="Tax ID" formControlName="branchCode">
+                    <div class="messages text-danger error" *ngIf="(customerForm.controls['branchCode'].touched || customerForm.controls['branchCode'].dirty)
+                        && customerForm.controls['branchCode'].errors && customerForm.controls['branchCode'].errors?.required">
+                      Branch Code can't be blank.
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label">Tel No.</label>
+                  <div class="col-sm-4">
+                    <input type="text" class="form-control" id="telNo" placeholder="Telephone ID" formControlName="telNo">
+                  </div>
+                  <label class="col-sm-2 col-form-label pull-right">Fax No.</label>
+                  <div class="col-sm-4">
+                    <input type="text" class="form-control" id="faxNo" placeholder="Fax No." formControlName="faxNo">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label">Customer Group</label>
+                  <div class="col-sm-10">
+                    <select class="form-control form-control-default" id="cusGroup" placeholder="Customer Group" formControlName="customerGroup">
+                      <option value="0">Select customer group</option>
+                      <option value="1">Group1</option>
+                      <option value="2">Group2</option>
+                      <option value="3">Group3</option>
+                      <option value="4">Group4</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label">ชื่อผู้ติดต่อ</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="contactName" placeholder="ชื่อผู้ติดต่อ" formControlName="contactName">
+                  </div>
+                </div>
+  
+                <span></span>
+                <div class="row">
+                  <div class="col-md-12">
+                    <h4 class="sub-title">ที่อยู่สำหรับวางบิล</h4>
+                    <div class="form-group row">
+                      <label class="col-sm-2 col-form-label">Address 1</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" id="billingAddress1" placeholder="Billing Address Line 1" formControlName="billingAddress1">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-sm-2 col-form-label">Address 2</label>
+                      <div class="col-sm-10">
+                        <input input type="text" class="form-control" id="billingAddress2" placeholder="Billing Address Line 2" formControlName="billingAddress2">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-sm-2 col-form-label">ตำบล</label>
+                      <div class="col-sm-4">
+                        <input input type="text" class="form-control" id="billingTambon" placeholder="ตำบล" formControlName="billingTambon">
+                      </div>
+                      <label class="col-sm-2 col-form-label">อำเภอ</label>
+                      <div class="col-sm-4">
+                        <input input type="text" class="form-control" id="billingAmphur" placeholder="อำเภอ" formControlName="billingAmphur">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-sm-2 col-form-label">จังหวัด</label>
+                      <div class="col-sm-4">
+                        <input input type="text" class="form-control" id="billingProvince" placeholder="จังหวัด" formControlName="billingProvince">
+                      </div>
+                      <label class="col-sm-2 col-form-label">รหัสไปรษณีย์</label>
+                      <div class="col-sm-4">
+                        <input input type="text" class="form-control" id="billingPostalCode" placeholder="รหัสไปรษณีย์" formControlName="billingPostalCode">
+                      </div>
+                    </div>
+                  </div>
+  
+                </div>
+                <div class="form-group row">
+                  <div class="col-md-12">
+                    <h4 class="sub-title">ที่อยู่สำหรับส่งสินค้า</h4>
+                    <div class="form-group row">
+                      <label class="col-sm-2 col-form-label">ที่อยู่บรรทัด 1</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" id="shippingAddress1" placeholder="Shipping Address Line 1" formControlName="shippingAddress1">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-sm-2 col-form-label">ที่อยู่บรรทัด 2</label>
+                      <div class="col-sm-10">
+                        <input input type="text" class="form-control" id="shippingAddress2" placeholder="Shipping Address Line 2" formControlName="shippingAddress2">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-sm-2 col-form-label">ตำบล</label>
+                      <div class="col-sm-4">
+                        <input input type="text" class="form-control" id="shippingTambon" placeholder="ตำบล" formControlName="shippingTambon">
+                      </div>
+                      <label class="col-sm-2 col-form-label">อำเภอ</label>
+                      <div class="col-sm-4">
+                        <input input type="text" class="form-control" id="shippingAmphur" placeholder="อำเภอ" formControlName="shippingAmphur">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-sm-2 col-form-label">จังหวัด</label>
+                      <div class="col-sm-4">
+                        <input input type="text" class="form-control" id="shippingProvince" placeholder="จังหวัด" formControlName="shippingProvince">
+                      </div>
+                      <label class="col-sm-2 col-form-label">รหัสไปรษณีย์</label>
+                      <div class="col-sm-4">
+                        <input input type="text" class="form-control" id="shippingPostalCode" placeholder="รหัสไปรษณีย์" formControlName="shippingPostalCode">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-2"></label>
+                  <div class="col-sm-10">
+                    <button type="submit" class="btn btn-primary m-b-0" [disabled]="!customerForm.valid">Save</button>
+                    <button type="button" class="btn btn-danger m-b-0" [disabled]="!customerForm.valid">Cancel</button>
+                  </div>
+                </div>
+  
+              </form>
+            </div>
+          </div>
+        </app-card>
+      </div>
+    </div>
+  </div>
+  

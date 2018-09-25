@@ -1,0 +1,147 @@
+<div class="page-body">
+  <div class="row">
+    <div class="col-md-12">
+      <app-card [title]="'แก้ไขข้อมูลสินค้า'" [headerContent]="'แก้ไขสินค้า'" [cardOptionBlock]="true">
+        <div class="card-block-hid">
+          <div class="card-block">
+            <h3 class="sub-title">ข้อมูลสินค้า</h3>
+            <form [formGroup]="productForm" (ngSubmit)="onSubmit()" novalidate>
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label">รหัสสินค้า</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="code"
+                    placeholder="Product Code" formControlName="productCode">
+                  <div class="messages text-danger" *ngIf="productForm.controls['productCode'].touched 
+                                                          && productForm.controls['productCode'].dirty
+                                                          && (productForm.controls['productCode'].errors 
+                                                            || productForm.controls['productCode'].errors?.required)">
+                    Name can't be blank
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label">ชื่อสินค้า</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="name"
+                    placeholder="Product Name" formControlName="productName">
+                  <div class="messages text-danger error" *ngIf="productForm.controls['productName'].touched && productForm.controls['productName'].dirty
+                      && productForm.controls['productName'].errors && productForm.controls['productName'].errors?.required">
+                    Customer Name can't be blank.
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label">น้ำหนัก</label>
+                <div class="col-sm-4">
+                  <input type="text" class="form-control" id="weight" placeholder="Standard Weight" formControlName="stdWeight">
+                  <div class="messages text-danger error" *ngIf="productForm.controls['stdWeight'].touched && productForm.controls['stdWeight'].dirty
+                      && productForm.controls['stdWeight'].errors && productForm.controls['stdWeight'].errors?.required">
+                    Weight can't be blank.
+                  </div>
+                </div>
+                <label class="col-sm-2 col-form-label pull-right">น้ำหนักประมาณ(กรัม)</label>
+                <div class="col-sm-4">
+                  <input type="text" class="form-control" id="estWeight" placeholder="Estimate Weight" formControlName="estWeight">
+                  <div class="messages text-danger error" *ngIf="productForm.controls['estWeight'].touched && productForm.controls['estWeight'].dirty
+                    && productForm.controls['estWeight'].errors && productForm.controls['estWeight'].errors?.required">
+                    Estimate Weight can't be blank.
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="wage" class="col-sm-2 col-form-label">ค่าแรง(บาท)</label>
+                <div class="col-sm-4">
+                  <input type="text" class="form-control" id="wage" placeholder="Wage" formControlName="wage">
+                </div>
+                <label for="stdPrice" class="col-sm-2 col-form-label pull-right">ราคามาตรฐาน(บาท)</label>
+                <div class="col-sm-4">
+                  <input type="text" class="form-control" id="stdPrice" placeholder="Standard Price" formControlName="stdPrice">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label">จำนวนคงเหลือ</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control-plaintext" readonly id="ิonHand"
+                    placeholder="On Hand Qty" formControlName="onHand">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="cusProdCode" class="col-sm-2 col-form-label">รหัสสินค้าของลูกค้า</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="cusProdCode"
+                    placeholder="รหัสสินค้าของลูกค้า" formControlName="cusProdCode">
+                </div>
+              </div>             
+
+              <span></span>
+              <div class="row">
+                <div class="col-md-12 col-xl-12">
+                  <div class="md-tabs">
+                    <ngb-tabset>
+                      <ngb-tab title="ส่วนลดลูกค้า">
+                        <ng-template ngbTabContent>
+                          <div [@fadeInOutTranslate] class="m-t-15">
+                            <div *ngIf="productDiscounts">
+                            <div formArrayName="productDiscounts" *ngFor="let disc of productDiscounts?.controls; let i=index">
+                              <div [formGroupName]="i">
+                                <div class="form-group form-inline">
+                                  <div class="col-md-3">
+                                    <select class="form-control"
+                                      formControlName="customerId" placeholder="Select customer">
+                                      <option *ngFor="let cus of customers" [value]="cus.id">{{ cus.companyName }}</option>
+                                    </select>
+                                  </div>
+                                  <div class="col-md-3">
+                                    <input type="text" class="form-control" [value]="product?.productDiscounts[i]?.discPrice"
+                                      formControlName="discPrice" placeholder="Enter price">
+                                  </div>
+                                  <div class="col-md-3">
+                                    <input type="text" class="form-control"
+                                      formControlName="discount" placeholder="Enter discount">
+                                  </div>
+                                  <div class="col-md-3">
+                                    <button type="button" class="btn btn-danger" (click)="removeDiscount(i)">
+                                      <i class="fa fa-trash"></i>
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div *ngIf="!productDiscounts">
+                            {{ addDiscount() }}
+                          </div>
+                            <div>
+                              <button type="button" class="btn btn-success" (click)="addDiscount()">Add</button>
+                            </div>
+                          </div>
+                        </ng-template>
+                      </ngb-tab>
+                      <ngb-tab title="ประวัติการขาย">
+                        <ng-template ngbTabContent>
+                          <div [@fadeInOutTranslate] class="m-t-15">
+                          </div>
+                        </ng-template>
+                      </ngb-tab>
+                      <ngb-tab title="ประวัติการแก้ไข">
+                        <ng-template ngbTabContent>
+                          <div [@fadeInOutTranslate] class="m-t-15">
+                          </div>
+                        </ng-template>
+                      </ngb-tab>
+                    </ngb-tabset>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row pull-right">
+                  <button type="submit" class="btn btn-primary mr-1" [disabled]="!productForm.valid">Save</button>
+                  <button type="button" class="btn btn-secondary pr-3" [routerLink]="['/product']">Cancel</button>
+                </div>
+            </form>
+          </div>
+        </div>
+      </app-card>
+    </div>
+  </div>
+</div>
+

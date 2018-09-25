@@ -1,0 +1,107 @@
+<div class="page-body">
+  <div class="row">
+    <div class="col-md-12">
+      <app-card [title]="'Product List'" [headerContent]="'List of products'">
+        <div class="row">
+          <div class="col-md-6">
+              <div class="form-group form-inline pull-left">                  
+                <button type="button" class="btn btn-success" [routerLink]="['/product/create']" routerLinkActive="router-link-active" >
+                  <i class="fa fa-plus"></i> New Product</button>
+                </div>  
+          </div>
+          <div class="col-md-6">
+              <div class="form-group form-inline pull-right">
+                  <input type="text" class="form-control ml-1 mr-1" placeholder="Search product code, name"
+                      name="searchString" [(ngModel)]="searchParams.searchString">
+                  <button type="submit" class="btn btn-success" (click)="getProducts()">
+                    <i class="fa fa-search"></i> Search</button>
+                </div>  
+          </div>
+        </div>
+       <div class="row">
+         <div class="col-md-12">
+            <ngx-datatable class="table-responsive expandable table table-hover" 
+              [columns]="columns" 
+              [reorderable]="reorderable" 
+              [loadingIndicator]="loadingIndicator"
+              [rows]="products" 
+              [headerHeight]="50" 
+              [footerHeight]="50" 
+              [rowHeight]="50" 
+              [externalPaging]="true"
+              [count]="pagination.totalItems"
+              [offset]="pagination.currentPage"
+              [limit]="pagination.itemsPerPage"
+              (page)='setPage($event)'
+              [columnMode]="'force'">
+            <ngx-datatable-column name="Product Code">
+              <ng-template let-column="column" ngx-datatable-header-template>
+                <strong>{{column.name}}</strong>
+              </ng-template>
+              <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+                <a [routerLink]="['/product/edit/', row.id]">{{ row.productCode }} </a>
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Product Name">
+              <ng-template let-column="column" ngx-datatable-header-template>
+                <strong>{{column.name}}</strong>
+              </ng-template>
+              <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                {{ row.productName }}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Weight">
+              <ng-template let-column="column" ngx-datatable-header-template>
+                <strong>{{column.name}}</strong>
+              </ng-template>
+              <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+                {{ row.stdWeight }}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Unit Price">
+              <ng-template let-column="column" ngx-datatable-header-template>
+                <strong>{{column.name}}</strong>
+              </ng-template>
+              <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+                {{ row.stdPrice | currency }}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="On Hand Qty">
+              <ng-template let-column="column" ngx-datatable-header-template>
+                <strong>{{column.name}}</strong>
+              </ng-template>
+              <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+                {{ row.stockOnHand }}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Command">
+              <ng-template let-column="column" ngx-datatable-header-template>
+                <strong>Command</strong>
+              </ng-template>
+              <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+                <div ngbDropdown class="dropdown-secondary dropdown">
+                  <button ngbDropdownToggle type="button" class="btn btn-mini btn-primary dropdown-toggle waves-light" id="ddCmd" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="true">
+                    <i class="fa fa-list"></i>
+                  </button>
+                  <div ngbDropdownMenu class="dropdown-menu dropdown-menu-right" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut" aria-labelledby="ddCmd">
+                    <a [routerLink]="['/product/edit/', row.id]" routerLinkActive="router-link-active"  class="dropdown-item waves-light waves-effect">
+                      <i class="fa fa-pencil"></i> Edit
+                    </a>
+                    <a class="dropdown-item waves-light waves-effect">
+                      <i class="fa fa-trash"></i> Cancel
+                    </a>
+  
+                  </div>
+                </div>
+              </ng-template>
+            </ngx-datatable-column>
+  
+          </ngx-datatable>
+         </div>
+       </div>
+        
+      </app-card>
+    </div>
+  </div>
+</div>

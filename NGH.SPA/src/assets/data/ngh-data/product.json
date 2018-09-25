@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "code": "Product-1",
+        "name": "Product 1",
+        "weight": 120.4,
+        "unitPrice": 100,
+        "onHandQty": 102
+    },
+    {
+        "id": 2,
+        "code": "Product-2",
+        "name": "Product 2",
+        "weight": 110.7,
+        "unitPrice": 140,
+        "onHandQty": 78
+    },
+    {
+        "id": 3,
+        "code": "Product-3",
+        "name": "Product 3",
+        "weight": 115.4,
+        "unitPrice": 110,
+        "onHandQty": 95
+    }
+]

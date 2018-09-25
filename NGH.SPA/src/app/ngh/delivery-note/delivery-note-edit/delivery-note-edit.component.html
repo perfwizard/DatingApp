@@ -1,0 +1,199 @@
+<div class="page-body">
+  <div class="row">
+    <div class="col-md-12">
+      <app-card [title]="'สร้างใบส่งสินค้า'" [headerContent]="'สร้าง แก้ไขใบส่งสินค้า'" [cardOptionBlock]="true">
+        <div class="card-block-hid">
+          <div class="card-block">
+            <h3 class="sub-title">สร้างใบส่งสินค้า</h3>
+            <form [formGroup]="dnForm" (ngSubmit)="onSubmit()">
+              <div class="form-group row" [ngClass]="{'has-danger': (dnForm.controls['customer'].touched || 
+                                dnForm.controls['customer'].dirty) && (
+                                !dnForm.controls['customer'].valid ||
+                                dnForm.controls['customer'].value == '0')}">
+                <label class="col-sm-2 col-form-label">ลูกค้า</label>
+                <div class="col-sm-4">
+                  <select id="customer" placeholder="Select a customer" formControlName="customer" class="form-control p-r-10" #c (change)="getCustomerAddress(c.value)"
+                    [ngClass]="{'form-control-danger': 
+                                      (dnForm.controls['customer'].touched || 
+                                      dnForm.controls['customer'].dirty) && 
+                                      (dnForm.controls['customer'].errors?.required || 
+                                      !dnForm.controls['customer'].valid ||
+                                      dnForm.controls['customer'].value == '0')}">
+                    <option *ngFor="let c of customers" [value]="c.id">{{ c.companyName }}</option>
+                  </select>
+                  <div class="message text-danger error" *ngIf="(dnForm.controls['customer'].touched || 
+                        dnForm.controls['customer'].dirty) && 
+                        (dnForm.controls['customer'].errors?.required || 
+                        !dnForm.controls['customer'].valid ||
+                        dnForm.controls['customer'].value == '0')">
+                    กรุณาเลือกลูกค้า
+                  </div>
+                </div>
+                <div class="col-sm-3" *ngIf="dnForm.controls['customer'].value > 0">
+                  <label class="col-form-label">
+                    <b>ที่อยู่วางบิล</b>
+                  </label>
+                  <br> {{ dn.billingAddress || billingAddress }}
+                </div>
+                <div class="col-sm-3" *ngIf="dnForm.controls['customer'].value > 0">
+                  <label class="col-form-label">
+                    <b>ที่อยู่ส่งสินค้า</b>
+                  </label>
+                  <br> {{ dn.shippingAddress || shippingAddress }}
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label">วันที่ส่งของ</label>
+                <div class="col-sm-4">
+                  <div class="input-group">
+                    <input class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #d="ngbDatepicker" formControlName="dnDate"
+                      (click)="d.toggle()">
+                    <!--<div class="input-group-addon bg-default">
+                                            <span class="icofont icofont-ui-calendar"></span>
+                                          </div>-->
+                  </div>
+                  <div class="messages text-danger error" *ngIf="(dnForm.controls['dnDate'].touched 
+                                                                                        || dnForm.controls['dnDate'].dirty)
+                                                                                        && dnForm.controls['dnDate'].errors 
+                                                                                        && dnForm.controls['dnDate'].errors?.required">
+                    กรุณาเลือกวันที่ส่งของ
+                  </div>
+                </div>
+                <label class="col-sm-2 col-form-label pull-right">ชำระโดย</label>
+                <div class="col-sm-4">
+                  <input type="text" class="form-control p-r-10" id="paidBy" placeholder="Paid By" formControlName="paidBy">
+                  <div class="messages text-danger error" *ngIf="(dnForm.controls['paidBy'].touched 
+                                                                                        || dnForm.controls['paidBy'].dirty)
+                                                                                        && dnForm.controls['paidBy'].errors 
+                                                                                        && dnForm.controls['paidBy'].errors.required">
+                    กรุณาเลือกวิธีชำระเงิน
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row" formArrayName="dnLines" id="dnLines">
+                <div class="col-xs-12">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th class="text-center">Product Code</th>
+                        <th class="text-center">Product Name</th>
+                        <th class="text-center">Qty</th>
+                        <th class="text-center">Unit Price</th>
+                        <th class="text-center">Discount</th>
+                        <th class="text-center">Line Total</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let ln of DNLines.controls; let i=index" [formGroupName]="i">
+                        <td>
+                          <div class="form-inline form-group p-r-10">
+                            <select formControlName="productCode" class="form-control" placeholder="Select Product" #ps (change)="GetProductInfo(ps, ln)">
+                              <option *ngFor="let prod of products" [value]="prod.id">{{ prod.productName }}</option>
+                            </select>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="form-inline form-group p-r-10">
+                            <textarea type="text" formControlName="productName" class="form-control"></textarea>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="form-group p-r-10">
+                            <input type="number" formControlName="qty" class="form-control" (change)="calculateLineTotal(ln)">
+                          </div>
+                        </td>
+                        <td>
+                          <div class="form-group p-r-10">
+                            <input type="number" formControlName="unitPrice" class="form-control" (change)="calculateLineTotal(ln)">
+                          </div>
+                        </td>
+                        <td>
+                          <div class="form-group p-r-10">
+                            <input type="number" formControlName="discount" class="form-control" (change)="calculateLineTotal(ln)">
+                          </div>
+                        </td>
+                        <td>
+                          <div class="form-group p-r-10">
+                            <input type="number" formControlName="lineTotal" class="form-control">
+                          </div>
+                        </td>
+                        <td>
+                          <div class="form-group">
+                            <i class="fa fa-trash text-danger" (click)="removeLine()"></i>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-md  -12 text-right">
+                  <button type="button" class="btn btn-primary" (click)="addLine()">Add Line</button>
+                </div>
+              </div>
+              <hr>
+              <div class="form-inline form-group row">
+                <label for="actualweight" class="col-sm-2 col-form-label">Actual Weight</label>
+                <div class="col-sm-4">
+                  <input class="form-control" id="actualweight" formControlName="actualWeight">
+                </div>
+                <label for="subtotal" class="col-sm-2 control-label">Subtotal</label>
+                <div class="col-sm-4">
+                  <input readonly class="form-control-plaintext" id="subtotal" formControlName="subtotal">
+                </div>
+              </div>
+              <div class="form-inline form-group row">
+                <label for="" class="col-sm-2 col-form-label">Std. Price</label>
+                <div class="col-sm-4">
+                  <input class="form-control" formControlName="stdPrice">
+                </div>
+                <label for="" class="col-sm-2 col-form-label">Discount</label>
+                <div class="col-md-4">
+                  <input type="text" class="form-control" formControlName="discount">
+                </div>
+              </div>
+              <div class="form-inline form-group row">
+                <label for="" class="col-sm-2 offset-sm-6 col-form-label">Net Amount</label>
+                <div class="col-md-4">
+                  <input type="text" reaadonly class="form-control-plaintext" formControlName="netAmount">
+                </div>
+              </div>
+              <div class="form-inline form-group row">
+                <label for="" class="col-sm-2 offset-sm-6 col-form-label">Trade Price</label>
+                <div class="col-md-4">
+                  <input type="text" class="form-control" formControlName="tradePrice">
+                </div>
+              </div>
+              <div class="form-inline form-group row">
+                <label for="" class="col-sm-2 offset-sm-6 col-form-label">Difference</label>
+                <div class="col-md-4">
+                  <input type="text" class="form-control" formControlName="diff">
+                </div>
+              </div>
+              <div class="form-inline form-group row">
+                <label for="vat" class="col-sm-2 offset-sm-6 control-label">VAT</label>
+                <div class="col-md-4">
+                  <input type="text" readonly class="form-control-plaintext" id="vat" formControlName="vat">
+                </div>
+              </div>
+              <div class="form-inline form-group row">
+                <label for="" class="col-sm-2 offset-sm-6 col-form-label">Grnad Total</label>
+                <div class="col-md-4">
+                  <input type="text" readonly class="form-control-plaintext" formControlName="total">
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <div class="col-sm-12 text-right">
+                  <button type="submit" class="btn btn-primary m-b-0 m-r-10" [disabled]="!dnForm.valid">Save</button>
+                  <button type="button" class="btn btn-danger m-b-0">Cancel</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </app-card>
+    </div>
+  </div>
+</div>

@@ -2,7 +2,22 @@
   <div class="row">
     <div class="col-md-12">
       <app-card [title]="'ใบส่งสินค้า'" [headerContent]="'รายการใบส่งสินค้า'" [blockClass]="'table-border-style'" [cardOptionBlock]="true">
-        
+        <div class="row">
+          <div class="col-md-6">
+              <div class="form-group form-inline pull-left">                  
+                <button type="button" class="btn btn-success" [routerLink]="['/deliverynote/create']" routerLinkActive="router-link-active" >
+                  <i class="fa fa-plus"></i> New Devliery Note</button>
+                </div>  
+          </div>
+          <div class="col-md-6">
+              <div class="form-group form-inline pull-right">
+                  <input type="text" class="form-control ml-1 mr-1" placeholder="Search DN No."
+                      name="searchString" [(ngModel)]="searchParams.searchString">
+                  <button type="submit" class="btn btn-success" (click)="getDNs()">
+                    <i class="fa fa-search"></i> Search</button>
+                </div>  
+          </div>
+        </div>
         <ngx-datatable
         class="data-table"
         [rows]="dns"
@@ -14,7 +29,7 @@
         [externalPaging]="true"
         [count]="pagination.totalItems"
         [offset]="pagination.currentPage"
-        [limit]="pagination.itemsPerpage"
+        [limit]="pagination.itemsPerPage"
         (page)='setPage($event)'>
         
         <ngx-datatable-column prop="dnNo" name="No."></ngx-datatable-column>

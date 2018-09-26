@@ -99,22 +99,22 @@
                         </td>
                         <td>
                           <div class="form-group p-r-10">
-                            <input type="number" formControlName="qty" class="form-control" (change)="calculateLineTotal(ln)">
+                            <input type="number" formControlName="qty" class="form-control text-right" (change)="calculateLineTotal(ln)">
                           </div>
                         </td>
                         <td>
                           <div class="form-group p-r-10">
-                            <input type="number" formControlName="unitPrice" class="form-control" (change)="calculateLineTotal(ln)">
+                            <input type="number" formControlName="unitPrice" class="form-control text-right" (change)="calculateLineTotal(ln)">
                           </div>
                         </td>
                         <td>
                           <div class="form-group p-r-10">
-                            <input type="number" formControlName="discount" class="form-control" (change)="calculateLineTotal(ln)">
+                            <input type="number" formControlName="discount" class="form-control text-right" (change)="calculateLineTotal(ln)">
                           </div>
                         </td>
                         <td>
                           <div class="form-group p-r-10">
-                            <input type="number" formControlName="lineTotal" class="form-control">
+                            <input type="number" formControlName="lineTotal" class="form-control-plaintext text-right" readonly>
                           </div>
                         </td>
                         <td>
@@ -128,7 +128,7 @@
                 </div>
               </div>
               <div class="form-group row">
-                <div class="col-md  -12 text-right">
+                <div class="col-md-12 text-right">
                   <button type="button" class="btn btn-primary" (click)="addLine()">Add Line</button>
                 </div>
               </div>
@@ -136,51 +136,52 @@
               <div class="form-inline form-group row">
                 <label for="actualweight" class="col-sm-2 col-form-label">Actual Weight</label>
                 <div class="col-sm-4">
-                  <input class="form-control" id="actualweight" formControlName="actualWeight">
+                  <input class="form-control text-right" id="actualweight" formControlName="actualWeight">
                 </div>
                 <label for="subtotal" class="col-sm-2 control-label">Subtotal</label>
                 <div class="col-sm-4">
-                  <input readonly class="form-control-plaintext" id="subtotal" formControlName="subtotal">
+                  <input readonly class="form-control-plaintext text-right" id="subtotal" formControlName="subtotal">
                 </div>
               </div>
               <div class="form-inline form-group row">
                 <label for="" class="col-sm-2 col-form-label">Std. Price</label>
                 <div class="col-sm-4">
-                  <input class="form-control" formControlName="stdPrice">
+                  <input class="form-control text-right" formControlName="stdPrice">
                 </div>
                 <label for="" class="col-sm-2 col-form-label">Discount</label>
                 <div class="col-md-4">
-                  <input type="text" class="form-control" formControlName="discount">
+                  <input type="text" class="form-control text-right w-100" formControlName="discount" (change)="calculateTotal()">
                 </div>
               </div>
-              <div class="form-inline form-group row">
-                <label for="" class="col-sm-2 offset-sm-6 col-form-label">Net Amount</label>
+              <div class="form-inline form-group row"> 
+                <label for="" class="col-sm-2 col-form-label">Price/Gram</label>
                 <div class="col-md-4">
-                  <input type="text" reaadonly class="form-control-plaintext" formControlName="netAmount">
+                  <input type="text" class="form-control text-right w-100" formControlName="pricePerGram" (change)="calculateTotal()">
                 </div>
               </div>
-              <div class="form-inline form-group row">
-                <label for="" class="col-sm-2 offset-sm-6 col-form-label">Trade Price</label>
-                <div class="col-md-4">
-                  <input type="text" class="form-control" formControlName="tradePrice">
+              <div class="form-inline form-group row"> 
+                <label for="" class="col-sm-2 col-form-label">Net Amount</label>
+                <div class="col-sm-4">
+                  <input type="text" reaadonly class="form-control-plaintext text-right col-sm-4" formControlName="netAmount">
                 </div>
               </div>
+              
               <div class="form-inline form-group row">
                 <label for="" class="col-sm-2 offset-sm-6 col-form-label">Difference</label>
                 <div class="col-md-4">
-                  <input type="text" class="form-control" formControlName="diff">
+                  <input type="text" readonly class="form-control-plaintext text-right" formControlName="diff">
                 </div>
               </div>
               <div class="form-inline form-group row">
                 <label for="vat" class="col-sm-2 offset-sm-6 control-label">VAT</label>
                 <div class="col-md-4">
-                  <input type="text" readonly class="form-control-plaintext" id="vat" formControlName="vat">
+                  <input type="text" readonly class="form-control-plaintext text-right" id="vat" formControlName="vat">
                 </div>
               </div>
               <div class="form-inline form-group row">
                 <label for="" class="col-sm-2 offset-sm-6 col-form-label">Grnad Total</label>
                 <div class="col-md-4">
-                  <input type="text" readonly class="form-control-plaintext" formControlName="total">
+                  <input type="text" readonly class="form-control-plaintext text-right" formControlName="total">
                 </div>
               </div>
 

@@ -24,6 +24,10 @@ const routes: Routes = [{
     {
       path: 'edit/:id',
       component: DeliveryNoteEditComponent
+    },
+    {
+      path: 'create',
+      component: DeliveryNoteEditComponent
     }
   ]
 }];

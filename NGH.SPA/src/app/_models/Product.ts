@@ -12,5 +12,5 @@ export class Product {
     onHandQty: number;
     custProductCode: string;
     productDiscounts?: Discount[];
-    delted: boolean;
+    // delted: boolean;
 }

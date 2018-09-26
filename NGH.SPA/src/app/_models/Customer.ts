@@ -14,5 +14,5 @@ export class Customer {
     billingAddress: string;
     shippingAddress: string;
     balance: number;
-    isActive: boolean;
+    // isActive: boolean;
 }

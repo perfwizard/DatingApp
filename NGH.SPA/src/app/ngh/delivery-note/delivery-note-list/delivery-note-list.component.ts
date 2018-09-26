@@ -12,7 +12,7 @@ import { Component, OnInit } from '@angular/core';
 export class DeliveryNoteListComponent implements OnInit {
   rows: any [];
   dns: DeliveryNote[];
-  userParams: any;
+  searchParams: any = {};
   pagination: Pagination = new Pagination();
 
   columns = [
@@ -40,7 +40,7 @@ export class DeliveryNoteListComponent implements OnInit {
   getDNs() {
     return this.dnService
       .getDeliveryNotes(this.pagination.currentPage,
-        this.pagination.itemsPerPage, this.userParams)
+        this.pagination.itemsPerPage, this.searchParams)
       .subscribe(
         (res: PaginatedResult<DeliveryNote[]>) => {
           this.dns = res.result;

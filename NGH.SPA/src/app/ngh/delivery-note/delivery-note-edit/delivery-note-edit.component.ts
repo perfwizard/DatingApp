@@ -45,7 +45,7 @@ export class DeliveryNoteEditComponent implements OnInit {
       subtotal: ['', Validators.required],
       discount: ['', Validators.required],
       netAmount: ['', Validators.required],
-      tradePrice: ['', Validators.required],
+      pricePerGram: ['', Validators.required],
       diff: ['', Validators.required],
       vat: ['', Validators.required],
       total: ['', Validators.required],
@@ -165,11 +165,14 @@ export class DeliveryNoteEditComponent implements OnInit {
         if (updateLine != null) {
           console.log('update line');
           updateLine.get('productName').setValue(this.product.productName);
-          updateLine.get('qty').patchValue(1);
-          updateLine.get('unitPrice').patchValue(this.product.stdPrice);
-          updateLine.get('discount').patchValue(0);
-          updateLine.get('lineTotal').patchValue(this.product.stdPrice);
+          updateLine.get('qty').patchValue((1).toLocaleString('en-US', {minimumFractionDigits: 2}));
+          updateLine.get('unitPrice').patchValue(this.product.stdPrice.toLocaleString('en-US', {minimumFractionDigits: 2}));
+          updateLine.get('discount').patchValue((0).toLocaleString('en-US', {minimumFractionDigits: 2}));
+          updateLine.get('lineTotal').patchValue(this.product.stdPrice.toLocaleString('en-US', {minimumFractionDigits: 2}));
+
+          this.calculateLineTotal(updateLine);
         }
+
       }, error => {
         console.log('error occured.');
       });
@@ -181,10 +184,10 @@ export class DeliveryNoteEditComponent implements OnInit {
       this.DNLines.push(this.fb.group({
         productCode: x.productCode,
         productName: x.productName,
-        unitPrice: x.unitPrice,
-        qty: x.qty,
-        discount: x.discount,
-        lineTotal: x.lineTotal
+        unitPrice: x.unitPrice.toLocaleString('en-US', {minimumFractionDigits: 2}),
+        qty: x.qty.toLocaleString('en-US', {minimumFractionDigits: 2}),
+        discount: x.discount.toLocaleString('en-US', {minimumFractionDigits: 2}),
+        lineTotal: x.lineTotal.toLocaleString('en-US', {minimumFractionDigits: 2})
       }));
     });
   }
@@ -195,11 +198,24 @@ export class DeliveryNoteEditComponent implements OnInit {
     const unitPrice = parseFloat(ln.get('unitPrice').value);
     const discount = parseFloat(ln.get('discount').value);
 
-    ln.get('lineTotal').patchValue(qty * unitPrice - discount);
+    ln.get('lineTotal').patchValue((qty * unitPrice - discount).toLocaleString('en-US', {minimumFractionDigits: 2}));
 
     this.calculateTotal();
   }
   calculateTotal() {
-
+    let subTotal = 0;
+    if (this.DNLines) {
+      this.DNLines.controls.forEach(e => {
+        subTotal += parseFloat(e.get('lineTotal').value);
+      });
+    }
+    this.dnForm.get('subtotal').setValue(subTotal.toLocaleString('en-US', {minimumFractionDigits: 2}));
+    const discount = parseFloat(this.dnForm.get('discount').value || 0);
+    this.dnForm.get('netAmount').setValue((subTotal - discount).toLocaleString('en-US', {minimumFractionDigits: 2}));
+    const pricePerGram =  parseFloat(this.dnForm.get('redemptionPrice').value || 0);
+    const diff = subTotal - discount - pricePerGram;
+    this.dnForm.get('diff').setValue(diff.toLocaleString('en-US', {minimumFractionDigits: 2}));
+    this.dnForm.get('vat').setValue((diff * .07).toLocaleString('en-US', {minimumFractionDigits: 2}));
+    this.dnForm.get('total').setValue((subTotal - discount + (diff * .07)).toLocaleString('en-US', {minimumFractionDigits: 2}));
   }
 }

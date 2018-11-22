@@ -4,3 +4,8 @@
     left: auto !important;
     width: inherit;
   }
+  .datatable-header .datatable-header-cell {
+    background-color: aqua      
+  }
+    
+  

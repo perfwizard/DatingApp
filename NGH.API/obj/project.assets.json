@@ -12602,11 +12602,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/nuttapon/Downloads/Gradientable5/Angular-5/Template/NGH.API/NGH.API.csproj",
+      "projectUniqueName": "/Users/nuttapon/Projects/NGH/App/NGH.API/NGH.API.csproj",
       "projectName": "NGH.API",
-      "projectPath": "/Users/nuttapon/Downloads/Gradientable5/Angular-5/Template/NGH.API/NGH.API.csproj",
+      "projectPath": "/Users/nuttapon/Projects/NGH/App/NGH.API/NGH.API.csproj",
       "packagesPath": "/Users/nuttapon/.nuget/packages/",
-      "outputPath": "/Users/nuttapon/Downloads/Gradientable5/Angular-5/Template/NGH.API/obj/",
+      "outputPath": "/Users/nuttapon/Projects/NGH/App/NGH.API/obj/",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"

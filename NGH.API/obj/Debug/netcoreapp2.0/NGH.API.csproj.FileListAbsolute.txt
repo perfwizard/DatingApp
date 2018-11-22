@@ -9,3 +9,14 @@
 /Users/nuttapon/Downloads/Gradientable5/Angular-5/Template/NGH.API/obj/Debug/netcoreapp2.0/NGH.API.dll
 /Users/nuttapon/Downloads/Gradientable5/Angular-5/Template/NGH.API/obj/Debug/netcoreapp2.0/NGH.API.pdb
 /Users/nuttapon/Downloads/Gradientable5/Angular-5/Template/NGH.API/obj/Debug/netcoreapp2.0/NGH.API.csprojAssemblyReference.cache
+/Users/nuttapon/Projects/NGH/App/NGH.API/bin/Debug/netcoreapp2.0/NGH.API.deps.json
+/Users/nuttapon/Projects/NGH/App/NGH.API/bin/Debug/netcoreapp2.0/NGH.API.runtimeconfig.json
+/Users/nuttapon/Projects/NGH/App/NGH.API/bin/Debug/netcoreapp2.0/NGH.API.runtimeconfig.dev.json
+/Users/nuttapon/Projects/NGH/App/NGH.API/bin/Debug/netcoreapp2.0/NGH.API.dll
+/Users/nuttapon/Projects/NGH/App/NGH.API/bin/Debug/netcoreapp2.0/NGH.API.pdb
+/Users/nuttapon/Projects/NGH/App/NGH.API/obj/Debug/netcoreapp2.0/NGH.API.csprojAssemblyReference.cache
+/Users/nuttapon/Projects/NGH/App/NGH.API/obj/Debug/netcoreapp2.0/NGH.API.csproj.CoreCompileInputs.cache
+/Users/nuttapon/Projects/NGH/App/NGH.API/obj/Debug/netcoreapp2.0/NGH.API.AssemblyInfoInputs.cache
+/Users/nuttapon/Projects/NGH/App/NGH.API/obj/Debug/netcoreapp2.0/NGH.API.AssemblyInfo.cs
+/Users/nuttapon/Projects/NGH/App/NGH.API/obj/Debug/netcoreapp2.0/NGH.API.dll
+/Users/nuttapon/Projects/NGH/App/NGH.API/obj/Debug/netcoreapp2.0/NGH.API.pdb
